@@ -67,7 +67,6 @@ function ocultarAlerta(){
         //validar respuesta del servivio
         const result = await response.json();
         console.log('Respuesta del servidor : ',result);
-
         if(result.codigo ==='00'){
             const userData = {
                 nombreUsuario: result.nombreUsuario,
@@ -82,6 +81,8 @@ function ocultarAlerta(){
         }else{
             mostrarAlerta(result.mensaje);
         }
+        
+        
         
     } catch (error) {
         console.error('Error : Ocurrio un problema no identificado', error);

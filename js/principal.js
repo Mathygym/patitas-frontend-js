@@ -4,8 +4,10 @@ window.addEventListener('load', function() {
     const logoutButton = this.document.getElementById('cerrar-seccion'); // Referencia al botón de cierre de sesión
     
     // Recuperar el nombre del usuario del localStorage
-    const result = JSON.parse(this.localStorage.getItem('result'));
-    console.log(result); 
+    const result = JSON.parse(localStorage.getItem('result'));
+
+    console.log('Contenido del localStorage en principal.html:', localStorage.getItem('result'));
+
 
     if (result && result.nombreUsuario) {
         mostrarAlerta(`Bienvenido ${result.nombreUsuario}`);
@@ -30,7 +32,9 @@ function mostrarAlerta(mensaje) {
 }
 
 // Función para cerrar sesión
-async function cerrarSesion(result) {
+async function cerrarSesion() {
+    const result = JSON.parse(localStorage.getItem('result')); // Recupera los datos
+
     if (!result || !result.tipoDocumento || !result.numeroDocumento) {
         mostrarAlerta("Error: Datos de usuario no válidos.");
         return; // Salir de la función si no hay datos válidos
@@ -39,9 +43,10 @@ async function cerrarSesion(result) {
     const logoutRequest = {
         tipoDocumento: result.tipoDocumento.trim(), // Asegúrate de limpiar espacios
         numeroDocumento: result.numeroDocumento.trim(), // Asegúrate de limpiar espacios
+       password: result.password ? result.password.trim() : '' // Asegúrate de incluir la contraseña
     };
-    
-    console.log(logoutRequest); // Verifica los datos antes de enviarlos
+
+    console.log("Datos enviados para cierre de sesión:", logoutRequest); // Verifica los datos en la consola
 
     try {
         const response = await fetch('http://localhost:8084/login/logout-async', {
@@ -61,8 +66,10 @@ async function cerrarSesion(result) {
         console.log("Cierre de sesión exitoso:", data);
         mostrarAlerta(data.message); // Mostrar mensaje de éxito
         localStorage.removeItem('result');
-        window.location.href = 'inicio.html'; // Redirigir a la página de inicio
-        console.log(logoutRequest); 
+        setTimeout(() => {
+            window.location.href = 'inicio.html';
+        }, 5000); // Redirigir a la página de inicio
+
     } catch (error) {
         console.error("Error durante el cierre de sesión:", error);
         mostrarAlerta(`Error al cerrar sesión: ${error.message}`);
