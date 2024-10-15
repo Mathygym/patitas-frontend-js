@@ -72,9 +72,9 @@ function ocultarAlerta(){
                 nombreUsuario: result.nombreUsuario,
                 tipoDocumento: tipoDocumento.value, // Agregar tipo de documento
                 numeroDocumento: numeroDocumento.value, // Agregar número de documento
-                // Agrega cualquier otro dato que necesites
+             
             };
-            console.log(userData); // Verifica que los datos estén bien
+            console.log(userData); 
            localStorage.setItem('result', JSON.stringify(userData));
             window.location.replace('principal.html');
 

@@ -41,9 +41,9 @@ async function cerrarSesion() {
     }
 
     const logoutRequest = {
-        tipoDocumento: result.tipoDocumento.trim(), // Asegúrate de limpiar espacios
-        numeroDocumento: result.numeroDocumento.trim(), // Asegúrate de limpiar espacios
-       password: result.password ? result.password.trim() : '' // Asegúrate de incluir la contraseña
+        tipoDocumento: result.tipoDocumento.trim(), 
+        numeroDocumento: result.numeroDocumento.trim(), 
+       password: result.password ? result.password.trim() : '' 
     };
 
     console.log("Datos enviados para cierre de sesión:", logoutRequest); // Verifica los datos en la consola
